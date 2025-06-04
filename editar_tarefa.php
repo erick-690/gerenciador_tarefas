@@ -1,16 +1,17 @@
 <?php
 // editar_tarefa.php
-require_once 'tarefas.php'; // Alterado
-require_once 'usuarios.php'; // Alterado
+require_once 'tarefas.php';   // Contém getTarefaById() e atualizarTarefa()
+require_once 'usuarios.php';  // Contém getUsuarios()
 
 $message = '';
 $message_type = '';
 $tarefa = null;
-$usuarios = getUsuarios();
+$usuarios = getUsuarios(); // Obter lista de usuários para popular o dropdown
 
+// Lógica para carregar a tarefa ao acessar a página (via GET ID)
 if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
     $id_tarefa = trim($_GET["id"]);
-    $tarefa = getTarefaById($id_tarefa);
+    $tarefa = getTarefaById($id_tarefa); // Busca 'data_cadastro' e 'nome_setor'
 
     if (empty($tarefa)) {
         header("location: index.php");
@@ -21,22 +22,24 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
     exit();
 }
 
+// Lógica para processar a atualização da tarefa via POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id_tarefa = $_POST["id_tarefa"];
     $descricao_tarefa = trim($_POST["descricao_tarefa"]);
-    $nome_setor = trim($_POST["nome_setor"]);
+    $nome_setor = trim($_POST["nome_setor"]); // Reintroduzido o campo setor
     $prioridade = $_POST["prioridade"];
     $status_tarefa = $_POST["status_tarefa"];
     $id_usuario = $_POST["id_usuario"];
 
-    if (empty($descricao_tarefa) || empty($nome_setor) || empty($prioridade) || empty($status_tarefa) || empty($id_usuario)) {
+    if (empty($descricao_tarefa) || empty($nome_setor) || empty($prioridade) || empty($status_tarefa) || empty($id_usuario)) { // Validação do setor
         $message = "Por favor, preencha todos os campos.";
         $message_type = "danger";
     } else {
+        // Chamada à função atualizarTarefa com $nome_setor
         if (atualizarTarefa($id_tarefa, $descricao_tarefa, $nome_setor, $prioridade, $status_tarefa, $id_usuario)) {
             $message = "Tarefa atualizada com sucesso!";
             $message_type = "success";
-            $tarefa = getTarefaById($id_tarefa);
+            $tarefa = getTarefaById($id_tarefa); // Recarrega os dados da tarefa
         } else {
             $message = "Erro ao atualizar tarefa.";
             $message_type = "danger";
@@ -50,7 +53,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Tarefa - Gerenciador de Tarefas SENAI</title>
-    <link rel="stylesheet" href="style.css"> </head>
+    <link rel="stylesheet" href="style.css">
+</head>
 <body>
     <header>
         <h1>Gerenciador de Tarefas SENAI</h1>
@@ -78,8 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <div class="form-group">
                     <label for="nome_setor">Setor:</label>
-                    <input type="text" id="nome_setor" name="nome_setor" value="<?php echo htmlspecialchars($tarefa['nome_setor']); ?>" required>
-                </div>
+                    <input type="text" id="nome_setor" name="nome_setor" value="<?php echo htmlspecialchars($tarefa['nome_setor']); ?>" required> </div>
                 <div class="form-group">
                     <label for="prioridade">Prioridade:</label>
                     <select id="prioridade" name="prioridade" required>
@@ -112,6 +115,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <?php endif; ?>
                     </select>
                 </div>
+                <?php if (isset($tarefa['data_cadastro'])): ?>
+                    <div class="form-group">
+                        <label>Data de Cadastro:</label>
+                        <p><?php echo date('d/m/Y H:i', strtotime(htmlspecialchars($tarefa['data_cadastro']))); ?></p>
+                    </div>
+                <?php endif; ?>
                 <div class="form-group">
                     <button type="submit" class="btn">Atualizar Tarefa</button>
                     <a href="index.php" class="btn btn-secondary">Cancelar</a>

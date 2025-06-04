@@ -1,26 +1,27 @@
 <?php
 // cadastro_tarefa.php
-require_once 'tarefas.php'; // Alterado
-require_once 'usuarios.php'; // Alterado
+require_once 'tarefas.php';   // Contém cadastrarTarefa()
+require_once 'usuarios.php';  // Contém getUsuarios()
 
 $message = '';
 $message_type = '';
-$usuarios = getUsuarios();
+$usuarios = getUsuarios(); // Busca usuários para popular o dropdown
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $descricao_tarefa = trim($_POST["descricao_tarefa"]);
-    $nome_setor = trim($_POST["nome_setor"]);
+    $nome_setor = trim($_POST["nome_setor"]); // Reintroduzido o campo setor
     $prioridade = $_POST["prioridade"];
     $id_usuario = $_POST["id_usuario"];
 
-    if (empty($descricao_tarefa) || empty($nome_setor) || empty($prioridade) || empty($id_usuario)) {
+    if (empty($descricao_tarefa) || empty($nome_setor) || empty($prioridade) || empty($id_usuario)) { // Validação do setor
         $message = "Por favor, preencha todos os campos.";
         $message_type = "danger";
     } else {
+        // Passa $nome_setor para cadastrarTarefa()
         if (cadastrarTarefa($descricao_tarefa, $nome_setor, $prioridade, $id_usuario)) {
             $message = "Tarefa cadastrada com sucesso!";
             $message_type = "success";
-            $_POST = array();
+            $_POST = array(); // Limpa os campos do formulário após o sucesso
         } else {
             $message = "Erro ao cadastrar tarefa.";
             $message_type = "danger";
@@ -34,7 +35,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Tarefa - Gerenciador de Tarefas SENAI</title>
-    <link rel="stylesheet" href="style.css"> </head>
+    <link rel="stylesheet" href="style.css">
+</head>
 <body>
     <header>
         <h1>Gerenciador de Tarefas SENAI</h1>
@@ -56,18 +58,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="form-group">
                 <label for="descricao_tarefa">Descrição da Tarefa:</label>
-                <textarea id="descricao_tarefa" name="descricao_tarefa" required></textarea>
+                <textarea id="descricao_tarefa" name="descricao_tarefa" required><?php echo isset($_POST['descricao_tarefa']) ? htmlspecialchars($_POST['descricao_tarefa']) : ''; ?></textarea>
             </div>
             <div class="form-group">
                 <label for="nome_setor">Setor:</label>
-                <input type="text" id="nome_setor" name="nome_setor" required>
-            </div>
+                <input type="text" id="nome_setor" name="nome_setor" value="<?php echo isset($_POST['nome_setor']) ? htmlspecialchars($_POST['nome_setor']) : ''; ?>" required> </div>
             <div class="form-group">
                 <label for="prioridade">Prioridade:</label>
                 <select id="prioridade" name="prioridade" required>
-                    <option value="baixa">Baixa</option>
-                    <option value="media" selected>Média</option>
-                    <option value="alta">Alta</option>
+                    <option value="baixa" <?php echo (isset($_POST['prioridade']) && $_POST['prioridade'] == 'baixa') ? 'selected' : ''; ?>>Baixa</option>
+                    <option value="media" <?php echo (!isset($_POST['prioridade']) || (isset($_POST['prioridade']) && $_POST['prioridade'] == 'media')) ? 'selected' : ''; ?>>Média</option>
+                    <option value="alta" <?php echo (isset($_POST['prioridade']) && $_POST['prioridade'] == 'alta') ? 'selected' : ''; ?>>Alta</option>
                 </select>
             </div>
             <div class="form-group">
@@ -76,7 +77,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <option value="">Selecione um usuário</option>
                     <?php if (!empty($usuarios)): ?>
                         <?php foreach ($usuarios as $usuario): ?>
-                            <option value="<?php echo htmlspecialchars($usuario['id_usuario']); ?>">
+                            <option value="<?php echo htmlspecialchars($usuario['id_usuario']); ?>"
+                                <?php echo (isset($_POST['id_usuario']) && $_POST['id_usuario'] == $usuario['id_usuario']) ? 'selected' : ''; ?>>
                                 <?php echo htmlspecialchars($usuario['nome_usuario']); ?>
                             </option>
                         <?php endforeach; ?>

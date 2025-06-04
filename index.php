@@ -43,7 +43,8 @@ if (isset($_GET['message']) && isset($_GET['type'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerenciador de Tarefas SENAI</title>
-    <link rel="stylesheet" href="style.css"> </head>
+    <link rel="stylesheet" href="style.css">
+</head>
 <body>
     <header>
         <h1>Gerenciador de Tarefas SENAI</h1>
@@ -70,9 +71,11 @@ if (isset($_GET['message']) && isset($_GET['type'])) {
                     <?php foreach ($tarefas_a_fazer as $tarefa): ?>
                         <div class="task-card prioridade-<?php echo htmlspecialchars($tarefa['prioridade']); ?>">
                             <h3><?php echo htmlspecialchars($tarefa['descricao_tarefa']); ?></h3>
-                            <p><strong>Setor:</strong> <?php echo htmlspecialchars($tarefa['nome_setor']); ?></p>
-                            <p><strong>Prioridade:</strong> <?php echo ucfirst(htmlspecialchars($tarefa['prioridade'])); ?></p>
+                            <p><strong>Setor:</strong> <?php echo htmlspecialchars($tarefa['nome_setor']); ?></p> <p><strong>Prioridade:</strong> <?php echo ucfirst(htmlspecialchars($tarefa['prioridade'])); ?></p>
                             <p><strong>Atribuído a:</strong> <?php echo htmlspecialchars($tarefa['nome_usuario']); ?></p>
+                            <?php if (isset($tarefa['data_cadastro'])): ?>
+                                <p><strong>Cadastro:</strong> <?php echo date('d/m/Y H:i', strtotime(htmlspecialchars($tarefa['data_cadastro']))); ?></p>
+                            <?php endif; ?>
                             <div class="task-actions">
                                 <a href="editar_tarefa.php?id=<?php echo htmlspecialchars($tarefa['id_tarefa']); ?>" class="btn">Editar</a>
                                 <form action="index.php" method="get" onsubmit="return confirm('Tem certeza que deseja excluir esta tarefa?');">
@@ -83,7 +86,7 @@ if (isset($_GET['message']) && isset($_GET['type'])) {
                                 <form action="index.php" method="post">
                                     <input type="hidden" name="update_status" value="1">
                                     <input type="hidden" name="id_tarefa_status" value="<?php echo htmlspecialchars($tarefa['id_tarefa']); ?>">
-                                    <select name="status_tarefa_select" class="status-select">
+                                    <select name="status_tarefa_select" class="btn status-select-button" onchange="this.form.submit()">
                                         <option value="a fazer" <?php echo ($tarefa['status_tarefa'] == 'a fazer') ? 'selected' : ''; ?>>A Fazer</option>
                                         <option value="fazendo" <?php echo ($tarefa['status_tarefa'] == 'fazendo') ? 'selected' : ''; ?>>Fazendo</option>
                                         <option value="pronto" <?php echo ($tarefa['status_tarefa'] == 'pronto') ? 'selected' : ''; ?>>Pronto</option>
@@ -103,9 +106,11 @@ if (isset($_GET['message']) && isset($_GET['type'])) {
                     <?php foreach ($tarefas_fazendo as $tarefa): ?>
                         <div class="task-card prioridade-<?php echo htmlspecialchars($tarefa['prioridade']); ?>">
                             <h3><?php echo htmlspecialchars($tarefa['descricao_tarefa']); ?></h3>
-                            <p><strong>Setor:</strong> <?php echo htmlspecialchars($tarefa['nome_setor']); ?></p>
-                            <p><strong>Prioridade:</strong> <?php echo ucfirst(htmlspecialchars($tarefa['prioridade'])); ?></p>
+                            <p><strong>Setor:</strong> <?php echo htmlspecialchars($tarefa['nome_setor']); ?></p> <p><strong>Prioridade:</strong> <?php echo ucfirst(htmlspecialchars($tarefa['prioridade'])); ?></p>
                             <p><strong>Atribuído a:</strong> <?php echo htmlspecialchars($tarefa['nome_usuario']); ?></p>
+                            <?php if (isset($tarefa['data_cadastro'])): ?>
+                                <p><strong>Cadastro:</strong> <?php echo date('d/m/Y H:i', strtotime(htmlspecialchars($tarefa['data_cadastro']))); ?></p>
+                            <?php endif; ?>
                             <div class="task-actions">
                                 <a href="editar_tarefa.php?id=<?php echo htmlspecialchars($tarefa['id_tarefa']); ?>" class="btn">Editar</a>
                                 <form action="index.php" method="get" onsubmit="return confirm('Tem certeza que deseja excluir esta tarefa?');">
@@ -116,7 +121,7 @@ if (isset($_GET['message']) && isset($_GET['type'])) {
                                 <form action="index.php" method="post">
                                     <input type="hidden" name="update_status" value="1">
                                     <input type="hidden" name="id_tarefa_status" value="<?php echo htmlspecialchars($tarefa['id_tarefa']); ?>">
-                                    <select name="status_tarefa_select" class="status-select">
+                                    <select name="status_tarefa_select" class="btn status-select-button" onchange="this.form.submit()">
                                         <option value="a fazer" <?php echo ($tarefa['status_tarefa'] == 'a fazer') ? 'selected' : ''; ?>>A Fazer</option>
                                         <option value="fazendo" <?php echo ($tarefa['status_tarefa'] == 'fazendo') ? 'selected' : ''; ?>>Fazendo</option>
                                         <option value="pronto" <?php echo ($tarefa['status_tarefa'] == 'pronto') ? 'selected' : ''; ?>>Pronto</option>
@@ -136,9 +141,11 @@ if (isset($_GET['message']) && isset($_GET['type'])) {
                     <?php foreach ($tarefas_pronto as $tarefa): ?>
                         <div class="task-card prioridade-<?php echo htmlspecialchars($tarefa['prioridade']); ?>">
                             <h3><?php echo htmlspecialchars($tarefa['descricao_tarefa']); ?></h3>
-                            <p><strong>Setor:</strong> <?php echo htmlspecialchars($tarefa['nome_setor']); ?></p>
-                            <p><strong>Prioridade:</strong> <?php echo ucfirst(htmlspecialchars($tarefa['prioridade'])); ?></p>
+                            <p><strong>Setor:</strong> <?php echo htmlspecialchars($tarefa['nome_setor']); ?></p> <p><strong>Prioridade:</strong> <?php echo ucfirst(htmlspecialchars($tarefa['prioridade'])); ?></p>
                             <p><strong>Atribuído a:</strong> <?php echo htmlspecialchars($tarefa['nome_usuario']); ?></p>
+                            <?php if (isset($tarefa['data_cadastro'])): ?>
+                                <p><strong>Cadastro:</strong> <?php echo date('d/m/Y H:i', strtotime(htmlspecialchars($tarefa['data_cadastro']))); ?></p>
+                            <?php endif; ?>
                             <div class="task-actions">
                                 <a href="editar_tarefa.php?id=<?php echo htmlspecialchars($tarefa['id_tarefa']); ?>" class="btn">Editar</a>
                                 <form action="index.php" method="get" onsubmit="return confirm('Tem certeza que deseja excluir esta tarefa?');">
@@ -149,7 +156,7 @@ if (isset($_GET['message']) && isset($_GET['type'])) {
                                 <form action="index.php" method="post">
                                     <input type="hidden" name="update_status" value="1">
                                     <input type="hidden" name="id_tarefa_status" value="<?php echo htmlspecialchars($tarefa['id_tarefa']); ?>">
-                                    <select name="status_tarefa_select" class="status-select">
+                                    <select name="status_tarefa_select" class="btn status-select-button" onchange="this.form.submit()">
                                         <option value="a fazer" <?php echo ($tarefa['status_tarefa'] == 'a fazer') ? 'selected' : ''; ?>>A Fazer</option>
                                         <option value="fazendo" <?php echo ($tarefa['status_tarefa'] == 'fazendo') ? 'selected' : ''; ?>>Fazendo</option>
                                         <option value="pronto" <?php echo ($tarefa['status_tarefa'] == 'pronto') ? 'selected' : ''; ?>>Pronto</option>
@@ -164,5 +171,6 @@ if (isset($_GET['message']) && isset($_GET['type'])) {
             </div>
         </div>
     </div>
-    <script src="script.js"></script> </body>
+    <script src="script.js"></script>
+</body>
 </html>

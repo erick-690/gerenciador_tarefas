@@ -1,6 +1,6 @@
 <?php
 // cadastro_usuario.php
-require_once 'usuarios.php'; // Alterado
+require_once 'usuarios.php';
 
 $message = '';
 $message_type = '';
@@ -32,7 +32,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Usuário - Gerenciador de Tarefas SENAI</title>
-    <link rel="stylesheet" href="style.css"> </head>
+    <link rel="stylesheet" href="style.css">
+</head>
 <body>
     <header>
         <h1>Gerenciador de Tarefas SENAI</h1>

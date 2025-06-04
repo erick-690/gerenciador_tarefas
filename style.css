@@ -2,9 +2,9 @@
 
 /* Cores SENAI */
 :root {
-    --senai-azul: #005691;
-    --senai-verde: #86bc25;
-    --senai-cinza: #f2f2f2;
+    --senai-azul: #000000;
+    --senai-verde: #0056b3;
+    --senai-cinza: #ffffff;
     --sensenai-cinza-escuro: #666;
 }
 
@@ -46,7 +46,7 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-    background-color: #6a961e;
+    background-color: #004070;
 }
 
 .container {
@@ -115,9 +115,9 @@ nav ul li a:hover {
 }
 
 .alert-success {
-    color: #155724;
-    background-color: #d4edda;
-    border-color: #c3e6cb;
+    color: #ffffff;
+    background-color: #0056b3;
+    border-color: #0056b3;
 }
 
 .alert-danger {
@@ -160,13 +160,13 @@ nav ul li a:hover {
 }
 
 .task-card.prioridade-baixa {
-    border-left-color: #28a745;
+    border-left-color: #0056b3;
 }
 .task-card.prioridade-media {
-    border-left-color: #ffc107;
+    border-left-color: #0056b3;
 }
 .task-card.prioridade-alta {
-    border-left-color: #dc3545;
+    border-left-color: #0056b3;
 }
 
 .task-card h3 {
@@ -195,4 +195,92 @@ nav ul li a:hover {
 
 .task-actions form {
     display: inline-block;
+}
+
+
+
+.task-actions .btn {
+    padding: 5px 10px; /* Ajusta o preenchimento para um tamanho padrão */
+    font-size: 0.8em; /* Tamanho da fonte para todos os botões pequenos */
+    height: 35px; /* Altura fixa para alinhar os botões */
+    display: inline-flex; /* Permite alinhar conteúdo e usar flexbox */
+    align-items: center; /* Centraliza o texto verticalmente */
+    justify-content: center; /* Centraliza o texto horizontalmente */
+    text-decoration: none; /* Garante que links (Editar) não tenham sublinhado */
+    box-sizing: border-box; /* Inclui padding e border no cálculo da largura/altura */
+}
+
+/* Estilo para o botão de Editar especificamente */
+.task-actions a.btn {
+    background-color: #0056b3; /* Cor do botão de Editar */
+    color: white;
+    /* Outras propriedades são herdadas do .task-actions .btn */
+}
+
+.task-actions a.btn:hover {
+    background-color: #004070; /* Um azul ainda mais escuro, por exemplo */
+}
+
+/* Estilo para o botão de Excluir (já estava bom, só para garantir consistência) */
+.task-actions .btn-danger {
+    background-color: #0056b3;
+    /* Outras propriedades são herdadas do .task-actions .btn */
+}
+
+.task-actions .btn-danger:hover {
+    background-color: #004070;
+}
+
+
+
+/* style.css */
+
+/* ... (seu CSS existente acima) ... */
+
+/* Estilo para o select de status parecer um botão (este é o que mais precisa de atenção para se parecer com os outros) */
+.status-select-button {
+    background-color: #0056b3; /* Cor de fundo padrão do botão */
+    color: white; /* Cor do texto */
+    padding: 5px 10px; /* Preenchimento interno, igual aos botões de editar/excluir */
+    border: none; /* Sem borda */
+    border-radius: 4px; /* Cantos arredondados */
+    cursor: pointer; /* Cursor de mão ao passar por cima */
+    font-size: 0.8em; /* Tamanho da fonte, igual aos botões pequenos */
+    appearance: none; /* Remove a seta padrão do navegador para selects */
+    -webkit-appearance: none; /* Para navegadores Webkit (Chrome, Safari) */
+    -moz-appearance: none; /* Para navegadores Mozilla (Firefox) */
+    text-align: center; /* Centraliza o texto */
+    text-align-last: center; /* Garante centralização em todos os navegadores */
+    margin-left: 5px; /* Adiciona um pequeno espaço à esquerda dos outros botões */
+    transition: background-color 0.3s ease; /* Transição suave na cor de fundo */
+    min-width: 100px; /* Garante uma largura mínima razoável para o "botão" de status */
+    height: 35px; /* **Crucial:** Define a altura para igualar a dos outros botões */
+    box-sizing: border-box; /* Garante que padding e border sejam incluídos no cálculo da largura/altura */
+}
+
+/* Estilo ao passar o mouse sobre o select de status */
+.status-select-button:hover {
+    background-color: #004070; /* Cor de fundo mais escura no hover, similar ao .btn:hover */
+}
+
+/* Estilo para as opções dentro do select (quando o dropdown é aberto) */
+.status-select-button option {
+    background-color: #fff; /* Fundo branco para as opções */
+    color: var(--senai-azul); /* Texto azul para as opções */
+    padding: 5px; /* Espaçamento para as opções */
+}
+
+/* Garante que os formulários de ação não causem quebras de linha indesejadas e se alinhem */
+.task-actions form {
+    display: inline-block; /* Faz com que os formulários se comportem como elementos em linha */
+    margin-left: 5px; /* Adiciona espaço entre o formulário e o elemento anterior */
+}
+
+/* Ajuste o gap para espaçamento entre os elementos dentro de task-actions */
+.task-actions {
+    display: flex; /* Transforma em flexbox para fácil alinhamento */
+    gap: 5px; /* Espaçamento entre os itens (links e formulários) */
+    margin-top: 10px;
+    justify-content: flex-end;
+    flex-wrap: wrap; /* Permite que os itens quebrem linha se não houver espaço suficiente */
 }
