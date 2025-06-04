@@ -1,0 +1,198 @@
+/* style.css */
+
+/* Cores SENAI */
+:root {
+    --senai-azul: #005691;
+    --senai-verde: #86bc25;
+    --senai-cinza: #f2f2f2;
+    --sensenai-cinza-escuro: #666;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--senai-cinza);
+    color: var(--senai-cinza-escuro);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Times New Roman', serif;
+    color: var(--senai-azul);
+}
+
+header {
+    background-color: var(--senai-azul);
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    background-color: var(--senai-verde);
+    margin: 0;
+}
+
+nav ul li a {
+    display: block;
+    padding: 15px 20px;
+    color: #fff;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+nav ul li a:hover {
+    background-color: #6a961e;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group textarea,
+.form-group select {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.btn {
+    background-color: var(--senai-azul);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #004070;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+.kanban-board {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.kanban-column {
+    flex: 1;
+    background-color: var(--senai-cinza);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.kanban-column h2 {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: var(--senai-azul);
+    border-bottom: 2px solid var(--senai-verde);
+    padding-bottom: 10px;
+}
+
+.task-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-left: 5px solid var(--senai-azul);
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.task-card.prioridade-baixa {
+    border-left-color: #28a745;
+}
+.task-card.prioridade-media {
+    border-left-color: #ffc107;
+}
+.task-card.prioridade-alta {
+    border-left-color: #dc3545;
+}
+
+.task-card h3 {
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-size: 1.1em;
+    color: var(--senai-azul);
+}
+
+.task-card p {
+    margin-bottom: 5px;
+    font-size: 0.9em;
+}
+
+.task-actions {
+    display: flex;
+    gap: 5px;
+    margin-top: 10px;
+    justify-content: flex-end;
+}
+
+.task-actions .btn {
+    padding: 5px 10px;
+    font-size: 0.8em;
+}
+
+.task-actions form {
+    display: inline-block;
+}
