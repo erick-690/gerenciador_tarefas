@@ -3,16 +3,20 @@
 require_once 'config.php'; // Certifique-se de que 'config.php' define $link para a conexão mysqli
 
 // Função para cadastrar uma nova tarefa
-function cadastrarTarefa($descricao, $nome_setor, $prioridade, $id_usuario) { // Adicionado $nome_setor
+function cadastrarTarefa($descricao, $nome_setor, $prioridade, $id_usuario) {
     global $link;
     $sql = "INSERT INTO tarefas (descricao_tarefa, nome_setor, prioridade, id_usuario, status_tarefa, data_cadastro) VALUES (?, ?, ?, ?, 'a fazer', NOW())";
 
     if ($stmt = mysqli_prepare($link, $sql)) {
-        // Tipo 's' para $descricao, 's' para $nome_setor, 's' para $prioridade, 'i' para $id_usuario
-        mysqli_stmt_bind_param($stmt, "sssis", $param_descricao, $param_nome_setor, $param_prioridade, $param_id_usuario);
+        // CORREÇÃO AQUI: A string de tipos agora é "sssi" para 4 variáveis
+        // 's' para $descricao (string)
+        // 's' para $nome_setor (string)
+        // 's' para $prioridade (string)
+        // 'i' para $id_usuario (inteiro)
+        mysqli_stmt_bind_param($stmt, "sssi", $param_descricao, $param_nome_setor, $param_prioridade, $param_id_usuario);
 
         $param_descricao = $descricao;
-        $param_nome_setor = $nome_setor; // Retornou o nome do setor
+        $param_nome_setor = $nome_setor;
         $param_prioridade = $prioridade;
         $param_id_usuario = $id_usuario;
 
@@ -28,6 +32,9 @@ function cadastrarTarefa($descricao, $nome_setor, $prioridade, $id_usuario) { //
     error_log("Erro no prepare statement (cadastrarTarefa): " . mysqli_error($link));
     return false;
 }
+
+// A função 'atualizarTarefa' que você me enviou já está correta com "sssssi" para 6 parâmetros.
+// As demais funções também parecem estar corretas.
 
 // Função para obter tarefas por status
 function getTarefasByStatus($status) {
